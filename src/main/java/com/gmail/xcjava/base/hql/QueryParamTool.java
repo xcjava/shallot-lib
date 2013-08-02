@@ -1,4 +1,4 @@
-package com.gmail.xcjava.base.spring;
+package com.gmail.xcjava.base.hql;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +11,7 @@ import org.hibernate.type.Type;
 
 import com.gmail.xcjava.base.date.DateUtil;
 
-public class QueryParamModel {
+public class QueryParamTool {
 
 	private Map<String, Object> objMap;
 	private Map<String, Object> optypeMap;
@@ -22,7 +22,7 @@ public class QueryParamModel {
 	private Map<String, Boolean> isCustomQueryMap;
 	
 	
-	public QueryParamModel(){
+	public QueryParamTool(){
 		this.objMap = new HashMap<String, Object>();
 		this.optypeMap = new HashMap<String, Object>();
 		this.combinationRelationMap = new HashMap<String, Object>();
@@ -35,7 +35,7 @@ public class QueryParamModel {
 	/**
 	 * 等于
 	 */
-	public QueryParamModel eq(String key, Object obj, Type type){
+	public QueryParamTool eq(String key, Object obj, Type type){
 		this.objMap.put(key, obj);
 		this.optypeMap.put(key, "=");
 		this.isCombinationMap.put(key, false);
@@ -48,7 +48,7 @@ public class QueryParamModel {
 	/**
 	 * 不等于
 	 */
-	public QueryParamModel uneq(String key, Object obj, Type type){
+	public QueryParamTool uneq(String key, Object obj, Type type){
 		this.objMap.put(key, obj);
 		this.optypeMap.put(key, "!=");
 		this.isCombinationMap.put(key, false);
@@ -61,7 +61,7 @@ public class QueryParamModel {
 	/**
 	 * 大于
 	 */
-	public QueryParamModel gt(String key, Object obj, Type type){
+	public QueryParamTool gt(String key, Object obj, Type type){
 		this.objMap.put(key, obj);
 		this.optypeMap.put(key, ">");
 		this.isCombinationMap.put(key, false);
@@ -74,7 +74,7 @@ public class QueryParamModel {
 	/**
 	 * 大于等于
 	 */
-	public QueryParamModel ge(String key, Object obj, Type type){
+	public QueryParamTool ge(String key, Object obj, Type type){
 		this.objMap.put(key, obj);
 		this.optypeMap.put(key, ">=");
 		this.isCombinationMap.put(key, false);
@@ -87,7 +87,7 @@ public class QueryParamModel {
 	/**
 	 * 小于
 	 */
-	public QueryParamModel lt(String key, Object obj, Type type){
+	public QueryParamTool lt(String key, Object obj, Type type){
 		this.objMap.put(key, obj);
 		this.optypeMap.put(key, "<");
 		this.isCombinationMap.put(key, false);
@@ -100,7 +100,7 @@ public class QueryParamModel {
 	/**
 	 * 小于等于
 	 */
-	public QueryParamModel le(String key, Object obj, Type type){
+	public QueryParamTool le(String key, Object obj, Type type){
 		this.objMap.put(key, obj);
 		this.optypeMap.put(key, "<=");
 		this.isCombinationMap.put(key, false);
@@ -113,7 +113,7 @@ public class QueryParamModel {
 	/**
 	 * 模糊搜索
 	 */
-	public QueryParamModel like(String key, Object obj, Type type){
+	public QueryParamTool like(String key, Object obj, Type type){
 		this.objMap.put(key, obj);
 		this.optypeMap.put(key, "like");
 		this.isCombinationMap.put(key, false);
@@ -126,7 +126,7 @@ public class QueryParamModel {
 	/**
 	 * 自定义查询
 	 */
-	public QueryParamModel customQuery(String key, Object[] objs, Type[] types){
+	public QueryParamTool customQuery(String key, Object[] objs, Type[] types){
 		List<Object> objList = new ArrayList<Object>();
 		List<Object> typeList = new ArrayList<Object>();
 		for(int i = 0; i < objs.length; i++){
@@ -141,7 +141,7 @@ public class QueryParamModel {
 		this.isCustomQueryMap.put(key, true);
 		return this;
 	}
-	public QueryParamModel customQuery(String key, Object objs, Type types){
+	public QueryParamTool customQuery(String key, Object objs, Type types){
 		this.combinationRelationMap.put(key, null);
 		this.isCombinationMap.put(key, false);
 		this.objMap.put(key, objs);
@@ -154,12 +154,12 @@ public class QueryParamModel {
 	/**
 	 * 与关系合并搜索条件
 	 */
-	public QueryParamModel and(String key, QueryParamModel[] qpms){
+	public QueryParamTool and(String key, QueryParamTool[] qpms){
 		List<Object> objs = new ArrayList<Object>();
 		List<Object> optypes = new ArrayList<Object>();
 		List<Object> types = new ArrayList<Object>();
 		List<String> attrs = new ArrayList<String>();
-		for(QueryParamModel item : qpms){
+		for(QueryParamTool item : qpms){
 			objs.addAll(item.objMap.values());
 			optypes.addAll(item.optypeMap.values());
 			types.addAll(item.dataTypeMap.values());
@@ -178,12 +178,12 @@ public class QueryParamModel {
 	/**
 	 * 或关系合并搜索条件
 	 */
-	public QueryParamModel or(String key, QueryParamModel[] qpms){
+	public QueryParamTool or(String key, QueryParamTool[] qpms){
 		List<Object> objs = new ArrayList<Object>();
 		List<Object> optypes = new ArrayList<Object>();
 		List<Object> types = new ArrayList<Object>();
 		List<String> attrs = new ArrayList<String>();
-		for(QueryParamModel item : qpms){
+		for(QueryParamTool item : qpms){
 			objs.addAll(item.objMap.values());
 			optypes.addAll(item.optypeMap.values());
 			types.addAll(item.dataTypeMap.values());
@@ -311,9 +311,9 @@ public class QueryParamModel {
 	}
 	
 	public static void main(String[] args){
-		QueryParamModel qpm = new QueryParamModel().uneq("marry", null, null).eq("id", 1, Hibernate.INTEGER).gt("age", 10, Hibernate.INTEGER).like("name", "fuck", Hibernate.STRING);
-		QueryParamModel[] qpmbirthday = {new QueryParamModel().ge("birthday1", DateUtil.parseDate("19800101", "yyyyMMdd"), Hibernate.DATE), new QueryParamModel().le("birthday2", new Date(), Hibernate.DATE)};
-		QueryParamModel[] qpmsex = {new QueryParamModel().eq("sex1", Boolean.valueOf(false), Hibernate.BOOLEAN), new QueryParamModel().eq("sex2", true, Hibernate.BOOLEAN)};
+		QueryParamTool qpm = new QueryParamTool().uneq("marry", null, null).eq("id", 1, Hibernate.INTEGER).gt("age", 10, Hibernate.INTEGER).like("name", "fuck", Hibernate.STRING);
+		QueryParamTool[] qpmbirthday = {new QueryParamTool().ge("birthday1", DateUtil.parseDate("19800101", "yyyyMMdd"), Hibernate.DATE), new QueryParamTool().le("birthday2", new Date(), Hibernate.DATE)};
+		QueryParamTool[] qpmsex = {new QueryParamTool().eq("sex1", Boolean.valueOf(false), Hibernate.BOOLEAN), new QueryParamTool().eq("sex2", true, Hibernate.BOOLEAN)};
 		qpm.and("birthday", qpmbirthday);
 		qpm.or("sex", qpmsex);
 		System.out.println(qpm.toHql("marry", "model"));

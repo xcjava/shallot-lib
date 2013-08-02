@@ -1,4 +1,4 @@
-package com.gmail.xcjava.base.spring;
+package com.gmail.xcjava.base.hql;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.gmail.xcjava.base.spring;
+package com.gmail.xcjava.base.hql;
 
 public enum QueryLink {
 
