@@ -117,13 +117,27 @@ public class CommonHibernateDaoImpl extends HibernateDaoSupport implements Commo
 
 		return query.list();
 	}
-
+	
 	public List findBy(String hql, Object[] objs, Type[] types,
 			Integer startRow, Integer pageSize) {
 		Session session = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setParameters(objs, types);
+		query.setFirstResult(startRow);
+		query.setMaxResults(pageSize);
+
+		return query.list();
+	}
+
+	public List findBy(String hql, Object[] objs, Integer startRow, Integer pageSize) {
+		Session session = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+		Query query = session.createQuery(hql);
+		int i = 0;
+		for(Object obj : objs){
+			query.setParameter(i++, obj);
+		}
 		query.setFirstResult(startRow);
 		query.setMaxResults(pageSize);
 

@@ -1,5 +1,7 @@
 package com.gmail.xcjava.base.str;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
@@ -56,6 +58,49 @@ public class StringTool {
     	 for(int i=0; i < length - numLength; i++)
     		 num = "0" + num;
     	 return num;
+     }
+     
+     
+     public static String mergeList(List list, String tag){
+    	 if(list == null || list.size() < 1)
+    		 return null;
+    	 
+    	 String str = "";
+    	 for(Object obj : list){
+    		 str += tag + obj + tag;
+    	 }
+    	 return str;
+     }
+     
+     public static List<String> split(String str, String tag){
+    	 if(str == null || tag == null)
+    		 return null;
+    	 
+    	 String[] array = str.split("[" + tag +"]{1,2}");
+    	 List<String> list = new ArrayList<String>();
+    	 for(String item : array){
+    		 if(!StringUtils.isEmpty(item)){
+    			 list.add(item);
+    		 }
+    	 }
+    	 return list;
+     }
+     
+     public static String addLine(String str, String newLine){
+    	 if(newLine == null){
+    		 return str;
+    	 }
+    	 
+    	 if(str == null){
+    		 return newLine;
+    	 }
+    	 
+    	 if(!str.endsWith("\r\n")){
+    		 str += "\r\n";
+    	 }
+    	 
+    	 str += newLine;
+    	 return str;
      }
      
      /**
@@ -206,5 +251,15 @@ public class StringTool {
      public static void main(String[] args) {
     	 //System.out.println(cleanXss("--'abcd);alert('1111');//001<script>alert('111111');</script>"));
     	 System.out.println(cleanXss("sold';alert(42873);'"));
+    	 
+    	 List<Long> list = new ArrayList<Long>();
+    	 list.add(Long.valueOf("111"));
+    	 list.add(Long.valueOf("222"));
+    	 list.add(Long.valueOf("333"));
+    	 list.add(Long.valueOf("444"));
+    	 
+    	 System.out.println(mergeList(list, "|"));
+    	 System.out.println(split(mergeList(list, "|"), "|").size() + "");
+    	 System.out.println(addLine("", "hello"));
      }
 }

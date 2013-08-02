@@ -141,6 +141,8 @@ public interface CommonHibernateDao {
 	 */
 	public List findBy(String hql, Object[] objs, Type[] types,
 			Integer startRow, Integer pageSize);
+	
+	public List findBy(String hql, Object[] objs, Integer startRow, Integer pageSize);
 
 	/**
 	 * 更新
