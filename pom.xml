@@ -4,7 +4,7 @@
 
   <groupId>com.gmail.xcjava</groupId>
   <artifactId>base_tool</artifactId>
-  <version>13.8.2-SNAPSHOT</version>
+  <version>13.8.22-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>base_tool</name>
