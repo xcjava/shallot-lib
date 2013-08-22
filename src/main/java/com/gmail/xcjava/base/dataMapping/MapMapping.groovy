@@ -35,7 +35,7 @@ class MapMapping {
 	 * @param obj
 	 * @return
 	 */
-	static map2obj(map, obj){
+	static map2obj(map, obj, boolean allowNullValue){
 		
 		/*Binding binding = new Binding();
 		binding.setVariable("obj", obj);
@@ -59,11 +59,23 @@ class MapMapping {
 					//shell.evaluate("obj." + key + " = new " + f.getType().getName() + "(\"" + value + "\");");
 					obj[key] = map[key];
 				}*/
-				obj[key] = map[key];
+				
+				if(allowNullValue){
+					obj[key] = map[key];
+				}else{
+					if(map[key] != null){
+						obj[key] = map[key];
+					}
+				}
+				
+				
 			}
 		}
 		
 		return obj;
 	}
 	
+	static map2obj(map, obj){
+		map2obj(map, obj, true);
+	}
 }

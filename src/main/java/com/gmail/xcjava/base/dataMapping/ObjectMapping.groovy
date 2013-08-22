@@ -38,7 +38,7 @@ class ObjectMapping {
 	 * @param target
 	 * @return
 	 */
-	static objMapping(source, target){
+	static objMapping(source, target, boolean allowNullValue){
 		
 		long debugTimestamp = 0;
 		if(logger.isDebugEnabled()){
@@ -56,6 +56,9 @@ class ObjectMapping {
 			}
 			
 			if(s != null && s.getType().getName().equals(f.getType().getName())){
+				if(!allowNullValue && source[s.getName()] == null){
+					continue;
+				}
 				target[s.getName()] = source[s.getName()];
 			}
 		}
@@ -66,5 +69,9 @@ class ObjectMapping {
 		
 		return target;
 				
+	}
+	
+	static objMapping(source, target){
+		objMapping(source, target, true);
 	}
 }
