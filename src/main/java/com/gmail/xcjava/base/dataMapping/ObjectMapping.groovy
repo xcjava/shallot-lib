@@ -74,4 +74,13 @@ class ObjectMapping {
 	static objMapping(source, target){
 		objMapping(source, target, true);
 	}
+	
+	static setFieldValue(obj, fieldName, fieldValue){
+		obj[fieldName] = fieldValue;
+		return obj;
+	}
+	
+	static getFieldValue(obj, fieldName){
+		return obj[fieldName];
+	}
 }
