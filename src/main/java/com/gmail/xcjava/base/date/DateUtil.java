@@ -323,7 +323,7 @@ public class DateUtil{
 	public static java.util.Date addMonth(java.util.Date date, int month) {
 		java.util.Calendar calendar = java.util.Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(java.util.Calendar.MONTH, 1);
+		calendar.add(java.util.Calendar.MONTH, month);
 		return calendar.getTime();
 	}
 
