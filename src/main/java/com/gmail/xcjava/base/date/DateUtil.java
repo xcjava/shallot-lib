@@ -499,6 +499,24 @@ public class DateUtil{
 	        return v.toArray(new GregorianCalendar[v.size()]);   
 	} 
 	
+	/**
+	 * 计算两个日期相差的月数
+	 * @param sourceDate
+	 * @param targetDate
+	 * @return
+	 */
+	public static int getMonthOffset(Date sourceDate, Date targetDate){
+		
+		int sourceMonth = getMonth(sourceDate);
+		int sourceYear = getYear(sourceDate);
+		
+		int targetMonth = getMonth(targetDate);
+		int targetYear = getYear(targetDate);
+		
+		return (sourceYear - targetYear) * 12 + sourceMonth - targetMonth;
+		
+	}
+	
 	/*public static void main(String[] args) {
 		String str = format(new Date(), "HH:mm:ss");
 		String str1 = "09:55:31";
